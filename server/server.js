@@ -30,8 +30,24 @@ app.use(rateLimit({
   legacyHeaders: false,
 }));
 
+const corsOptions = {
+  origin: function (origin, callback) {
+    const allowedOrigins = ['http://localhost:5173', 'https://mind-and-motion-app.vercel.app'];
+    if (allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  exposedHeaders: ['Content-Type', 'Authorization'],
+  optionsSuccessStatus: 200
+
+}
 // Core middlewares
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(express.json());
 
 // Logger
