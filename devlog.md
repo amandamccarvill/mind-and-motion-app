@@ -30,47 +30,58 @@ While building the signup and profile views, I realized the app defaulted to gre
 
 I also integrated the .json yoga and meditation data into MongoDB as collections and created the necessary backend controllers, routes, and error handling logic to support them.
 
-Challenges and Iteration
-One significant issue arose while trying to render the dashboard. It was only loading the affirmation content while silently failing on the other data. I commented out the dashboard sections one by one to identify the problem. This led me to discover that the horoscope API I was using was returning a 503 Service Unavailable error. After further research, I replaced it with a new API available via RapidAPI, which resolved the issue.
+### Challenges 
+One significant issue arose while trying to render the dashboard. It was only loading the affirmation content while silently failing on the other data. I commented out the dashboard sections one by one to identify the problem. This led me to discover that the horoscope API I was using was returning the following error in my console:
 
-Lessons Learned
-API reliability is not guaranteed; having a backup plan or a way to pivot is essential.
+<!-- Zodiac sign: virgo Error fetching horoscope: Request failed with status code 503 Status: 503 Response data: <!DOCTYPE html> <html> <head> <meta name="viewport" content="width=device-width, initial-scale=1"> <meta charset="utf-8"> <title>Application Error</title> <style media="screen"> html,body,iframe { margin: 0; padding: 0; } html,body { height: 100%; overflow: hidden; } iframe { width: 100%; height: 100%; border: 0; } </style> </head> <body> <iframe src="https://www.herokucdn.com/error-pages/application-error.html"></iframe> </body> </html> [RESPONSE] Status: 500 - Body: { error: 'Horoscope service error' }  -->
 
-Incrementally isolating sections of code is an effective way to debug complex component loading issues.
+This told me that the horoscope API I was using was no longer viable as it was down. To resolve this, I replaced it with a new API available via RapidAPI, which resolved the issue.
 
-Week 3: UI Improvements and Feature Polishing
+### Lessons Learned
+1. API reliability is not guaranteed; having a backup plan or a way to pivot is essential.
+2. Incrementally isolating sections of code is an effective way to debug complex component loading issues.
+
+## Week 3: UI Improvements and Feature Polishing
 Heading into the third week, my focus shifted to refining the user interface and polishing core functionality. The dashboard layout was initially a long scroll of text, which didn’t offer a user-friendly experience. To address this, I restructured the layout into a two-column grid and added collapsible sections for each content area (affirmations, yoga poses, meditation sounds, and horoscopes).
 
-Duplicate Handling in Favorites
+### Duplicate Handling in Favorites
 Another issue I encountered was the ability to add the same yoga pose, affirmation, or meditation sound to a user’s favorites multiple times. This cluttered the profile page and detracted from the overall experience. I addressed this by:
 
-Frontend:
+#### Frontend:
+1. Tracking favorites in state and comparing new items before sending a POST request.
+2. Displaying user feedback such as “Already added to favorites” when duplicates are detected.
 
-Tracking favorites in state and comparing new items before sending a POST request.
+#### Backend:
+1. Updating the Mongoose schema to store yoga and meditation favorites as objects instead of plain strings.
+2. Adding logic to prevent duplicates based on title or name before saving.
 
-Displaying user feedback such as “Already added to favorites” when duplicates are detected.
-
-Backend:
-
-Updating the Mongoose schema to store yoga and meditation favorites as objects instead of plain strings.
-
-Adding logic to prevent duplicates based on title or name before saving.
-
-Improving the Profile Page
+### Improving the Profile Page
 While reviewing the profile page, I realized that yoga poses and meditation sounds were only being displayed by name or title. This lacked depth and didn't communicate the value of the content. To improve this, I built a modal component that displays additional information when an item is clicked—such as the Sanskrit name, difficulty, benefits, and embedded media.
 
-Final Technical Challenge: YouTube Embedding
+### Final Technical Challenge: YouTube Embedding
 One persistent issue throughout the project was rendering YouTube videos for meditation sounds or yoga demonstrations. Although embedding seemed simple, it took time to correctly extract the YouTube video ID and display it using an iframe. Once resolved, this made the UI significantly more engaging and informative.
 
-Reflection and Key Takeaways
+The code I landed on that made this functionality work is as follows:
+ <!-- {yogaPose?.url && (
+                <div className="mt-6">
+                  <h3 className="text-lg font-medium text-pink-700">Watch the Pose:</h3>
+                  <div className="aspect-video w-full rounded-lg overflow-hidden shadow-md">
+                    <iframe
+                      src={`https://www.youtube.com/embed/${getVideoId(yogaPose.url)}`}
+                      title="YouTube video player"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      allowFullScreen
+                      className="w-full h-full"
+                    ></iframe>
+                  </div>
+                </div>
+              )} -->
+
+## Reflection and Key Takeaways
 This project taught me the value of flexibility, persistence, and precision in full-stack development. While many of the challenges were technical, such as API failures or backend integration, some of the most important lessons were around process:
 
-Always restart the server after changes—especially when working with routes or environment variables.
+1. Always restart the server after changes—especially when working with routes or environment variables.
+2. Naming consistency matters more than expected; even a small typo or singular/plural mismatch can break functionality.
+3. Avoid assuming APIs will remain available or unchanged; be prepared to adapt.
 
-Naming consistency matters more than expected; even a small typo or singular/plural mismatch can break functionality.
-
-Avoid assuming APIs will remain available or unchanged; be prepared to adapt.
-
-Designing with the user in mind led me to make meaningful changes like personalized greetings, rich content modals, and clearer error messaging.
-
-Overall, this project pushed me to improve my debugging skills, better structure my codebase, and think holistically about user experience and long-term maintainability.
+Designing with the user in mind led me to make meaningful changes like personalized greetings, rich content modals, and clearer error messaging. Overall, this project pushed me to improve my debugging skills, better structure my codebase, and think holistically about user experience and long-term maintainability.

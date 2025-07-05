@@ -1,4 +1,3 @@
-// const BASE_URL = 'http://localhost:4000/api';
 const BASE_URL = import.meta.env.VITE_API_KEY
 
 export async function api(path, method = 'GET', body = null, token = null) {
