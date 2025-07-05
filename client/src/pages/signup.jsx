@@ -6,8 +6,8 @@ export default function Signup() {
   const [name, setName] = useState('');  // New state for the name
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [zodiacSign, setZodiacSign] = useState('aries'); // Default value
-  const [preferredYogaLevel, setPreferredYogaLevel] = useState('beginner'); // Default value
+  const [zodiacSign, setZodiacSign] = useState(''); // Default value
+  const [preferredYogaLevel, setPreferredYogaLevel] = useState(''); // Default value
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -63,6 +63,9 @@ export default function Signup() {
           onChange={(e) => setZodiacSign(e.target.value)}
           className="w-full mb-4 px-4 py-3 border border-pink-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-300"
         >
+           <option value="" disabled hidden>
+          Set Zodiac Sign
+          </option>
           <option value="aries">Aries</option>
           <option value="taurus">Taurus</option>
           <option value="gemini">Gemini</option>
@@ -83,6 +86,9 @@ export default function Signup() {
           onChange={(e) => setPreferredYogaLevel(e.target.value)}
           className="w-full mb-6 px-4 py-3 border border-pink-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-300"
         >
+          <option value="" disabled hidden>
+            Set Yoga Level
+          </option>
           <option value="beginner">Beginner</option>
           <option value="intermediate">Intermediate</option>
           <option value="advanced">Advanced</option>
