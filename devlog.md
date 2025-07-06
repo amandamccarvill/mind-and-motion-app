@@ -33,7 +33,7 @@ I also integrated the .json yoga and meditation data into MongoDB as collections
 ### Challenges 
 One significant issue arose while trying to render the dashboard. It was only loading the affirmation content while silently failing on the other data. I commented out the dashboard sections one by one to identify the problem. This led me to discover that the horoscope API I was using was returning the following error in my console:
 
-Zodiac sign: virgo Error fetching horoscope: Request failed with status code 503 Status: 503 Response data: <!DOCTYPE html> <html> <head> <meta name="viewport" content="width=device-width, initial-scale=1"> <meta charset="utf-8"> <title>Application Error</title> <style media="screen"> html,body,iframe { margin: 0; padding: 0; } html,body { height: 100%; overflow: hidden; } iframe { width: 100%; height: 100%; border: 0; } </style> </head> <body> <iframe src="https://www.herokucdn.com/error-pages/application-error.html"></iframe> </body> </html> [RESPONSE] Status: 500 - Body: { error: 'Horoscope service error' } 
+<!-- Zodiac sign: virgo Error fetching horoscope: Request failed with status code 503 Status: 503 Response data: <!DOCTYPE html> <html> <head> <meta name="viewport" content="width=device-width, initial-scale=1"> <meta charset="utf-8"> <title>Application Error</title> <style media="screen"> html,body,iframe { margin: 0; padding: 0; } html,body { height: 100%; overflow: hidden; } iframe { width: 100%; height: 100%; border: 0; } </style> </head> <body> <iframe src="https://www.herokucdn.com/error-pages/application-error.html"></iframe> </body> </html> [RESPONSE] Status: 500 - Body: { error: 'Horoscope service error' }  -->
 
 This told me that the horoscope API I was using was no longer viable as it was down. To resolve this, I replaced it with a new API available via RapidAPI, which resolved the issue.
 
@@ -62,7 +62,7 @@ While reviewing the profile page, I realized that yoga poses and meditation soun
 One persistent issue throughout the project was rendering YouTube videos for meditation sounds or yoga demonstrations. Although embedding seemed simple, it took time to correctly extract the YouTube video ID and display it using an iframe. Once resolved, this made the UI significantly more engaging and informative.
 
 The code I landed on that made this functionality work is as follows:
- {yogaPose?.url && (
+ <!-- {yogaPose?.url && (
                 <div className="mt-6">
                   <h3 className="text-lg font-medium text-pink-700">Watch the Pose:</h3>
                   <div className="aspect-video w-full rounded-lg overflow-hidden shadow-md">
@@ -75,7 +75,7 @@ The code I landed on that made this functionality work is as follows:
                     ></iframe>
                   </div>
                 </div>
-              )}
+              )} -->
 
 ## Reflection and Key Takeaways
 This project taught me the value of flexibility, persistence, and precision in full-stack development. While many of the challenges were technical, such as API failures or backend integration, some of the most important lessons were around process:
