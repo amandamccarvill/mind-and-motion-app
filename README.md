@@ -102,6 +102,7 @@ Users can:
 3. Expand meditation and yoga pose libraries beyond the current 50 entries
 5. Add accessibility improvements and theme options
 6. Enable daily notifications or reminders
+7. Add "Forgot Password" functionality where you can recover your account via email 
 
 ## Target Audience
 1. Individuals practicing mindfulness, yoga, or meditation
